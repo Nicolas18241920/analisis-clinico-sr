@@ -1,9 +1,10 @@
-// Esperar a que el DOM esté completamente cargado
-document.addEventListener('DOMContentLoaded', function() {
-    
-    // Menú hamburguesa
+document.addEventListener('DOMContentLoaded', function () {
+
+    /* =========================================
+       1. MENÚ HAMBURGUESA
+    ========================================= */
     const hamburger = document.querySelector('.hamburger');
-    const navMenu = document.querySelector('.nav-menu');
+    const navMenu   = document.querySelector('.nav-menu');
 
     if (hamburger) {
         hamburger.addEventListener('click', () => {
@@ -18,101 +19,98 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // Scroll suave
+    /* =========================================
+       2. SCROLL SUAVE
+    ========================================= */
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
-            e.preventDefault();
             const target = document.querySelector(this.getAttribute('href'));
             if (target) {
-                target.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'start'
-                });
+                e.preventDefault();
+                target.scrollIntoView({ behavior: 'smooth', block: 'start' });
             }
         });
     });
 
-    // Navbar transparente en scroll
+    /* =========================================
+       3. NAVBAR SHADOW EN SCROLL
+    ========================================= */
+    const navbar = document.querySelector('.navbar');
     window.addEventListener('scroll', () => {
-        const navbar = document.querySelector('.navbar');
-        if (navbar) {
-            if (window. scrollY > 50) {
-                navbar. style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.15)';
-            } else {
-                navbar.style.boxShadow = '0 1px 3px rgba(0, 0, 0, 0.1)';
-            }
+        if (!navbar) return;
+        if (window.scrollY > 50) {
+            navbar.style.boxShadow = '0 4px 12px rgba(0,0,0,0.15)';
+        } else {
+            navbar.style.boxShadow = '0 1px 3px rgba(0,0,0,0.1)';
         }
     });
 
-    // Funcionalidad de expandir/colapsar paquetes
-    const packageHeaders = document.querySelectorAll('.package-header');
-    
-    console.log('Paquetes encontrados:', packageHeaders.length); // Para debug
-    
-    packageHeaders.forEach(header => {
-        header. addEventListener('click', function() {
-            const packageCard = this.closest('.package-card');
-            const isActive = packageCard.classList. contains('active');
-            
-            // Cerrar todos los paquetes
-            document.querySelectorAll('.package-card').forEach(card => {
-                card.classList.remove('active');
+    /* =========================================
+       4. ACORDEÓN DE PAQUETES
+       — Funciona aunque las tarjetas tengan
+         opacity:0 por el scroll-reveal.
+    ========================================= */
+    document.querySelectorAll('.package-header').forEach(function (header) {
+        header.addEventListener('click', function () {
+            var card     = this.closest('.package-card');
+            var isActive = card.classList.contains('active');
+
+            // Cierra todos
+            document.querySelectorAll('.package-card').forEach(function (c) {
+                c.classList.remove('active');
+                var btn = c.querySelector('.toggle-btn');
+                if (btn) btn.textContent = '+';
             });
-            
-            // Abrir el paquete clickeado si no estaba activo
+
+            // Abre el pulsado (si estaba cerrado)
             if (!isActive) {
-                packageCard.classList. add('active');
+                card.classList.add('active');
+                var toggleBtn = card.querySelector('.toggle-btn');
+                if (toggleBtn) toggleBtn.textContent = '×';
             }
-            
-            console.log('Click en paquete:', this.querySelector('h3').textContent); // Para debug
         });
     });
 
-    // Formulario de contacto
-    const contactForm = document.getElementById('contactForm');
-
+    /* =========================================
+       5. FORMULARIO DE CONTACTO → WHATSAPP
+    ========================================= */
+    var contactForm = document.getElementById('contactForm');
     if (contactForm) {
-        contactForm.addEventListener('submit', (e) => {
+        contactForm.addEventListener('submit', function (e) {
             e.preventDefault();
-            
-            const name = document.getElementById('name').value;
-            const email = document.getElementById('email').value;
-            const phone = document.getElementById('phone').value;
-            const message = document.getElementById('message').value;
-            
-            // Crear mensaje para WhatsApp
-            const whatsappMessage = `Hola, soy ${name}. ${message}. Mi email es ${email}${phone ? ` y mi teléfono es ${phone}` : ''}.`;
-            const whatsappURL = `https://wa.me/573007389527? text=${encodeURIComponent(whatsappMessage)}`;
-            
-            // Abrir WhatsApp
-            window.open(whatsappURL, '_blank');
-            
-            // Limpiar formulario
+            var name    = document.getElementById('name').value;
+            var email   = document.getElementById('email').value;
+            var phone   = document.getElementById('phone').value;
+            var message = document.getElementById('message').value;
+
+            var text = 'Hola, soy ' + name + '. ' + message +
+                       '. Mi email es ' + email +
+                       (phone ? ' y mi teléfono es ' + phone : '') + '.';
+
+            window.open('https://wa.me/573007389527?text=' + encodeURIComponent(text), '_blank');
             contactForm.reset();
         });
     }
 
-    // Animación de entrada para las tarjetas
-    const observerOptions = {
-        threshold:  0.1,
-        rootMargin: '0px 0px -50px 0px'
-    };
-
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
+    /* =========================================
+       6. SCROLL REVEAL (IntersectionObserver)
+       — usa clase .reveal en lugar de inyectar
+         opacity:0 en línea, para no bloquear
+         el acordeón de paquetes.
+    ========================================= */
+    var revealEls = document.querySelectorAll('.service-card, .feature');
+    var observer  = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
             if (entry.isIntersecting) {
-                entry.target.style. opacity = '1';
-                entry.target.style.transform = 'translateY(0)';
+                entry.target.classList.add('visible');
+                observer.unobserve(entry.target);
             }
         });
-    }, observerOptions);
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
 
-    // Observar todas las tarjetas
-    document.querySelectorAll('.service-card, .package-card, .feature').forEach(card => {
-        card.style.opacity = '0';
-        card.style.transform = 'translateY(20px)';
-        card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-        observer.observe(card);
+    revealEls.forEach(function (el) {
+        el.classList.add('reveal');
+        observer.observe(el);
     });
 
 });
