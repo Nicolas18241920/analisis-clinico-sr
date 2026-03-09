@@ -40,10 +40,21 @@ body {
     transition: all 0.3s ease;
 }
 
+.navbar.scrolled {
+    background: rgba(26, 107, 138, 0.95);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.navbar.scrolled .nav-menu a,
+.navbar.scrolled .logo {
+    color: var(--white);
+}
+
 .navbar .container {
     display: flex;
     justify-content: space-between;
-    align-items:  center;
+    align-items: center;
     padding: 1rem 20px;
 }
 
@@ -121,7 +132,7 @@ body {
 }
 
 .hero h1 {
-    font-size: 3. 5rem;
+    font-size: 3.5rem;
     font-weight: 800;
     margin-bottom: 1rem;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
@@ -143,7 +154,7 @@ body {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
     gap: 1.5rem;
-    margin:  2rem 0;
+    margin: 2rem 0;
 }
 
 .stat-item {
@@ -403,7 +414,7 @@ section {
     max-height: 0;
     overflow:  hidden;
     transition: max-height 0.4s ease-out;
-    padding: 0 1. 5rem;
+    padding: 0 1.5rem;
 }
 
 .package-card.active .package-content {
@@ -420,7 +431,7 @@ section {
     gap: 0.5rem 1.5rem;
     max-height: 400px;
     overflow-y: auto;
-    padding-right: 0. 5rem;
+    padding-right: 0.5rem;
 }
 
 /* Scroll personalizado */
@@ -770,4 +781,119 @@ section {
 .package-note:before {
     content: "⏱️";
     font-size:1.2rem;
+}
+/* Smooth scroll */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Text selection */
+::selection {
+    background: var(--secondary-color);
+    color: white;
+}
+
+/* Slogan */
+.slogan {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--secondary-color);
+    margin-bottom: 1.5rem;
+    font-style: italic;
+    letter-spacing: 0.5px;
+}
+
+/* Section title decorative underline */
+.section-title::after {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 4px;
+    background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+    margin: 0.75rem auto 0;
+    border-radius: 2px;
+}
+
+/* PDF download section */
+.pdf-download-section {
+    text-align: center;
+    margin-top: 3rem;
+    padding: 2.5rem;
+    background: linear-gradient(135deg, #1a6b8a 0%, #0d4f6e 100%);
+    border-radius: 20px;
+    box-shadow: var(--shadow-lg);
+}
+
+.pdf-download-section h3 {
+    color: white;
+    margin-bottom: 1rem;
+    font-size: 1.5rem;
+}
+
+.pdf-download-section p {
+    color: rgba(255,255,255,0.9);
+    margin-bottom: 1.5rem;
+}
+
+.pdf-download-section .btn-download {
+    background: white;
+    color: var(--primary-color);
+    font-size: 1.1rem;
+    padding: 1rem 2rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-weight: 700;
+    border-radius: 50px;
+    text-decoration: none;
+    transition: all 0.3s;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+}
+
+.pdf-download-section .btn-download:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+    background: var(--secondary-color);
+    color: white;
+}
+
+/* Placeholder styling */
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+    color: #9ca3af;
+    font-size: 0.95rem;
+}
+
+/* Accessible focus ring */
+.btn:focus-visible,
+input:focus-visible,
+textarea:focus-visible {
+    outline: 3px solid var(--secondary-color);
+    outline-offset: 2px;
+}
+
+/* Hamburger active animation */
+.hamburger.active span:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 5px);
+}
+
+.hamburger.active span:nth-child(2) {
+    opacity: 0;
+    transform: translateX(-10px);
+}
+
+.hamburger.active span:nth-child(3) {
+    transform: rotate(-45deg) translate(5px, -5px);
+}
+
+/* Scroll reveal animations */
+.slide-up {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.slide-up.visible {
+    opacity: 1;
+    transform: translateY(0);
 }

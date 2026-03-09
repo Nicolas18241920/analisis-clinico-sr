@@ -8,6 +8,7 @@ document.addEventListener('DOMContentLoaded', function() {
     if (hamburger) {
         hamburger.addEventListener('click', () => {
             navMenu.classList.toggle('active');
+            hamburger.classList.toggle('active');
         });
     }
 
@@ -15,6 +16,7 @@ document.addEventListener('DOMContentLoaded', function() {
     document.querySelectorAll('.nav-menu a').forEach(link => {
         link.addEventListener('click', () => {
             navMenu.classList.remove('active');
+            if (hamburger) hamburger.classList.remove('active');
         });
     });
 
@@ -32,14 +34,14 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // Navbar transparente en scroll
+    // Navbar scroll con clase .scrolled
     window.addEventListener('scroll', () => {
         const navbar = document.querySelector('.navbar');
         if (navbar) {
-            if (window. scrollY > 50) {
-                navbar. style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.15)';
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
             } else {
-                navbar.style.boxShadow = '0 1px 3px rgba(0, 0, 0, 0.1)';
+                navbar.classList.remove('scrolled');
             }
         }
     });
@@ -47,12 +49,10 @@ document.addEventListener('DOMContentLoaded', function() {
     // Funcionalidad de expandir/colapsar paquetes
     const packageHeaders = document.querySelectorAll('.package-header');
     
-    console.log('Paquetes encontrados:', packageHeaders.length); // Para debug
-    
     packageHeaders.forEach(header => {
-        header. addEventListener('click', function() {
+        header.addEventListener('click', function() {
             const packageCard = this.closest('.package-card');
-            const isActive = packageCard.classList. contains('active');
+            const isActive = packageCard.classList.contains('active');
             
             // Cerrar todos los paquetes
             document.querySelectorAll('.package-card').forEach(card => {
@@ -61,10 +61,8 @@ document.addEventListener('DOMContentLoaded', function() {
             
             // Abrir el paquete clickeado si no estaba activo
             if (!isActive) {
-                packageCard.classList. add('active');
+                packageCard.classList.add('active');
             }
-            
-            console.log('Click en paquete:', this.querySelector('h3').textContent); // Para debug
         });
     });
 
@@ -82,37 +80,50 @@ document.addEventListener('DOMContentLoaded', function() {
             
             // Crear mensaje para WhatsApp
             const whatsappMessage = `Hola, soy ${name}. ${message}. Mi email es ${email}${phone ? ` y mi teléfono es ${phone}` : ''}.`;
-            const whatsappURL = `https://wa.me/573007389527? text=${encodeURIComponent(whatsappMessage)}`;
+            const whatsappURL = `https://wa.me/573007389527?text=${encodeURIComponent(whatsappMessage)}`;
             
             // Abrir WhatsApp
             window.open(whatsappURL, '_blank');
             
             // Limpiar formulario
             contactForm.reset();
+
+            // Mostrar confirmación visual
+            const submitBtn = contactForm.querySelector('button[type="submit"]');
+            const originalText = submitBtn.textContent;
+            submitBtn.textContent = '✓ Mensaje enviado';
+            submitBtn.disabled = true;
+            setTimeout(() => {
+                submitBtn.textContent = originalText;
+                submitBtn.disabled = false;
+            }, 3000);
         });
     }
 
     // Animación de entrada para las tarjetas
     const observerOptions = {
-        threshold:  0.1,
+        threshold: 0.1,
         rootMargin: '0px 0px -50px 0px'
     };
 
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
-                entry.target.style. opacity = '1';
-                entry.target.style.transform = 'translateY(0)';
+                entry.target.classList.add('visible');
+                observer.unobserve(entry.target);
             }
         });
     }, observerOptions);
 
-    // Observar todas las tarjetas
-    document.querySelectorAll('.service-card, .package-card, .feature').forEach(card => {
-        card.style.opacity = '0';
-        card.style.transform = 'translateY(20px)';
-        card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+    document.querySelectorAll('.service-card, .package-card, .feature, .contact-item, .stat-item').forEach(card => {
+        card.classList.add('slide-up');
         observer.observe(card);
     });
+
+    // Año dinámico en el footer
+    const yearEl = document.querySelector('.footer-bottom p');
+    if (yearEl) {
+        yearEl.innerHTML = yearEl.innerHTML.replace('2026', new Date().getFullYear());
+    }
 
 });
