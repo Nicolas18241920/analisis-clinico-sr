@@ -36,10 +36,10 @@ document.addEventListener('DOMContentLoaded', function() {
     window.addEventListener('scroll', () => {
         const navbar = document.querySelector('.navbar');
         if (navbar) {
-            if (window. scrollY > 50) {
-                navbar. style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.15)';
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
             } else {
-                navbar.style.boxShadow = '0 1px 3px rgba(0, 0, 0, 0.1)';
+                navbar.classList.remove('scrolled');
             }
         }
     });
@@ -94,24 +94,22 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Animación de entrada para las tarjetas
     const observerOptions = {
-        threshold:  0.1,
+        threshold: 0.1,
         rootMargin: '0px 0px -50px 0px'
     };
 
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
-                entry.target.style. opacity = '1';
-                entry.target.style.transform = 'translateY(0)';
+                entry.target.classList.add('visible');
+                observer.unobserve(entry.target);
             }
         });
     }, observerOptions);
 
-    // Observar todas las tarjetas
-    document.querySelectorAll('.service-card, .package-card, .feature').forEach(card => {
-        card.style.opacity = '0';
-        card.style.transform = 'translateY(20px)';
-        card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+    // Observar todas las tarjetas con slide-up
+    document.querySelectorAll('.service-card, .package-card, .feature, .contact-item, .stat-item').forEach(card => {
+        card.classList.add('slide-up');
         observer.observe(card);
     });
 
