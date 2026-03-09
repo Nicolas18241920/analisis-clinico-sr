@@ -10,6 +10,53 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        /* Floating WhatsApp Button */
+        .whatsapp-float {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 9999;
+        }
+        .whatsapp-float a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 60px;
+            height: 60px;
+            background-color: #25D366;
+            border-radius: 50%;
+            box-shadow: 0 4px 16px rgba(37, 211, 102, 0.5);
+            text-decoration: none;
+            animation: whatsapp-pulse 2s infinite;
+            position: relative;
+        }
+        .whatsapp-float a svg {
+            fill: white;
+        }
+        .whatsapp-float a::after {
+            content: '¡Escríbenos!';
+            position: absolute;
+            right: 70px;
+            background: #333;
+            color: white;
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            white-space: nowrap;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.2s;
+        }
+        .whatsapp-float a:hover::after {
+            opacity: 1;
+        }
+        @keyframes whatsapp-pulse {
+            0%   { transform: scale(1); box-shadow: 0 4px 16px rgba(37, 211, 102, 0.5); }
+            50%  { transform: scale(1.1); box-shadow: 0 6px 24px rgba(37, 211, 102, 0.7); }
+            100% { transform: scale(1); box-shadow: 0 4px 16px rgba(37, 211, 102, 0.5); }
+        }
+    </style>
 </head>
 <body>
     <!-- Navegación -->
@@ -41,7 +88,8 @@
             <div class="hero-text">
                 <h1>Análisis Clínico SR</h1>
                 <p class="subtitle">Resultados Confiables, Portafolio Completo de Exámenes Clínicos</p>
-                <p class="description">Laboratorio clínico profesional especializado en toma de muestras y análisis clínicos con tecnología de última generación.</p>
+                <p class="slogan"><em>Precisión con calidad humana</em></p>
+                <p class="description">En Análisis Clínico SR combinamos el rigor científico con una atención cercana y respetuosa. Cada muestra es procesada con altos estándares de calidad, tecnología confiable y protocolos estrictos que garantizan resultados exactos y oportunos. Creemos que un diagnóstico no es solo un dato: es una decisión que impacta la salud y la tranquilidad de las personas. Por eso, además de precisión técnica, ofrecemos acompañamiento, claridad en la información y un trato humano que genera confianza. Nuestro compromiso es brindar resultados confiables, respaldados por procesos seguros y un equipo profesional que entiende que detrás de cada examen hay una historia, una familia y una expectativa. <strong>Precisión en cada análisis. Calidad humana en cada atención.</strong></p>
                 
                 <!-- Estadísticas -->
                 <div class="hero-stats">
@@ -848,7 +896,7 @@
 <div style="text-align: center; margin-top: 3rem; padding: 2rem; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 16px;">
     <h3 style="color: white; margin-bottom: 1rem; font-size: 1.5rem;">📄 Descarga Nuestro Portafolio Completo</h3>
     <p style="color: rgba(255, 255, 255, 0.9); margin-bottom: 1.5rem;">Conoce todos nuestros servicios y paquetes en un solo documento</p>
-    <a href="https://github.com/Nicolas18241920/analisis-clinico-sr/raw/main/ANALISIS%20CLINICO%20SR.pdf" download="Portafolio-Analisis-Clinico-SR.pdf" class="btn btn-secondary" style="background: white; color: #667eea; font-size: 1.1rem; padding: 1rem 2rem; display: inline-flex; align-items: center; gap: 0.5rem;">
+    <a href="ANALISIS%20CLINICO%20SR.pdf" download="Portafolio-Analisis-Clinico-SR.pdf" class="btn btn-secondary" style="background: white; color: #667eea; font-size: 1.1rem; padding: 1rem 2rem; display: inline-flex; align-items: center; gap: 0.5rem;">
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
             <polyline points="7 10 12 15 17 10"></polyline>
@@ -887,8 +935,15 @@
                         <div class="feature">
                             <div class="feature-icon">✓</div>
                             <div>
-                                <h4>Atención Profesional</h4>
-                                <p>Personal capacitado y trato personalizado</p>
+                                <h4>Calidad y Calidez en la Atención</h4>
+                                <p>Combinamos precisión técnica con un trato humano y cercano</p>
+                            </div>
+                        </div>
+                        <div class="feature">
+                            <div class="feature-icon">✓</div>
+                            <div>
+                                <h4>Acompañamiento Personalizado</h4>
+                                <p>Te guiamos en cada paso del proceso con claridad y confianza</p>
                             </div>
                         </div>
                         <div class="feature">
@@ -927,7 +982,7 @@
                         <div class="contact-icon">📧</div>
                         <div>
                             <h4>Email</h4>
-                            <p><a href="mailto:analisisclinicosr@gmail.com">analisisclinicosr@gmail.com</a></p>
+                            <p><a href="mailto:info@analisisclinicosr.com">info@analisisclinicosr.com</a></p>
                         </div>
                     </div>
                     
@@ -982,7 +1037,7 @@
                 <div class="footer-section">
                     <h4>Contacto</h4>
                     <p>📞 300 7389527</p>
-                    <p>📧 analisisclinicosr@gmail.com</p>
+                    <p>📧 info@analisisclinicosr.com</p>
                 </div>
             </div>
             <div class="footer-bottom">
@@ -992,6 +1047,15 @@
     </footer>
 
     <script src="js/script.js"></script>
+
+    <!-- Botón flotante de WhatsApp -->
+    <div class="whatsapp-float">
+        <a href="https://wa.me/573007389527?text=Hola,%20me%20gustaría%20obtener%20más%20información" target="_blank" aria-label="Contactar por WhatsApp">
+            <svg width="32" height="32" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path d="M17.472 14.382c-0.297-0.149-1.758-0.867-2.03-0.967-0.273-0.099-0.471-0.148-0.67 0.15-0.197 0.297-0.767 0.966-0.94 1.164-0.173 0.199-0.347 0.223-0.644 0.075-0.297-0.15-1.255-0.463-2.39-1.475-0.883-0.788-1.48-1.761-1.653-2.059-0.173-0.297-0.018-0.458 0.13-0.606 0.134-0.133 0.298-0.347 0.446-0.52 0.149-0.174 0.198-0.298 0.298-0.497 0.099-0.198 0.05-0.371-0.025-0.52-0.075-0.149-0.669-1.612-0.916-2.207-0.242-0.579-0.487-0.5-0.669-0.51-0.173-0.008-0.371-0.01-0.57-0.01-0.198 0-0.52 0.074-0.792 0.372-0.272 0.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074 0.149 0.198 2.096 3.2 5.077 4.487 0.709 0.306 1.262 0.489 1.694 0.625 0.712 0.227 1.36 0.195 1.871 0.118 0.571-0.085 1.758-0.719 2.006-1.413 0.248-0.694 0.248-1.289 0.173-1.413-0.074-0.124-0.272-0.198-0.57-0.347m-5.421 7.403h-0.004a9.87 9.87 0 01-5.031-1.378l-0.361-0.214-3.741 0.982 0.998-3.648-0.235-0.374a9.86 9.86 0 01-1.51-5.26c0.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-0.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 0.16 5.335 0.157 11.892c0 2.096 0.547 4.142 1.588 5.945L0.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h0.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+            </svg>
+        </a>
+    </div>
 </body>
 </html>
 
